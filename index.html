@@ -1,231 +1,728 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Clean & Safe Challenge - Workplace EHS Awareness Game">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Clean & Safe Challenge - Workplace Cleanliness EHS Awareness Game"
+    >
+
     <title>Clean & Safe Challenge | EHS Awareness Game</title>
+
     <link rel="stylesheet" href="style.css">
-    <script src="game.js" defer></script>
 </head>
+
 <body>
 
-    <div id="game">
+<div id="game">
 
-        <!-- ==================== GAME HEADER ==================== -->
-        <header id="gameHeader">
-            <div id="titleBlock">
-                <p id="brandTag">EHS AWARENESS GAME</p>
-                <h1 id="gameTitle">CLEAN &amp; SAFE CHALLENGE</h1>
-                <p id="gameSubtitle">Workplace Cleanliness EHS Game</p>
-            </div>
+    <!-- =========================================================
+         GAME HEADER
+    ========================================================== -->
+    <header id="gameHeader">
 
-            <div id="hud" aria-label="Game status">
-                <div class="hud-item" id="scoreDisplay">
-                    <span class="hud-label">SCORE</span>
-                    <div id="score" aria-live="polite">0</div>
-                </div>
+        <div id="titleBlock">
 
-                <div class="hud-item" id="timerDisplay">
-                    <span class="hud-label">TIME</span>
-                    <div id="timer" aria-live="polite">01:00</div>
-                </div>
+            <p id="brandTag">
+                EHS AWARENESS GAME
+            </p>
 
-                <div class="hud-item" id="wasteRemainingDisplay">
-                    <span class="hud-label">WASTE LEFT</span>
-                    <div id="wasteRemaining" aria-live="polite">10</div>
-                </div>
+            <h1 id="gameTitle">
+                CLEAN &amp; SAFE CHALLENGE
+            </h1>
 
-                <button id="pauseButton" type="button" aria-label="Pause game">PAUSE</button>
-            </div>
-        </header>
+            <p id="gameSubtitle">
+                Workplace Cleanliness EHS Game
+            </p>
 
-        <!-- ==================== START SCREEN ==================== -->
-        <div id="startScreen" class="game-screen">
-            <div class="screen-content">
-                <p class="screen-tag">EHS AWARENESS GAME</p>
-                <h2 class="screen-title">CLEAN &amp; SAFE CHALLENGE</h2>
-                <p class="screen-description">
-                    Clean the workplace by collecting all waste
-                    and putting it into the dustbin before time runs out.
-                </p>
-
-                <ol class="screen-instructions">
-                    <li>Pick up the waste.</li>
-                    <li>Drag the waste toward the dustbin.</li>
-                    <li>Drop it inside the dustbin.</li>
-                    <li>Complete the challenge before the timer reaches zero.</li>
-                </ol>
-
-                <button id="startButton" type="button">START GAME</button>
-            </div>
         </div>
 
-        <!-- ==================== MAIN GAME AREA ==================== -->
-        <main id="gameArea" aria-label="Workplace cleaning game area">
 
-            <!-- Dustbin: the drop target for all waste items -->
-            <div id="dustbin" aria-label="Waste Dustbin" role="img">
-                <img src="assets/dustbin.png" alt="Waste dustbin target">
-            </div>
+        <!-- ==================== GAME HUD ==================== -->
 
-            <!-- Container holding all draggable waste items -->
-            <div id="wasteContainer" aria-label="Scattered waste items">
+        <div id="hud" aria-label="Game status">
 
-                <img src="assets/bottle.png"
-                     alt="Plastic bottle waste"
-                     class="waste-item"
-                     id="waste-1"
-                     draggable="true"
-                     data-waste-type="plastic"
-                     data-points="10">
+            <div class="hud-item" id="scoreDisplay">
 
-                <img src="assets/paper.png"
-                     alt="Paper waste"
-                     class="waste-item"
-                     id="waste-2"
-                     draggable="true"
-                     data-waste-type="paper"
-                     data-points="10">
+                <span class="hud-label">
+                    SCORE
+                </span>
 
-                <img src="assets/can.png"
-                     alt="Aluminum can waste"
-                     class="waste-item"
-                     id="waste-3"
-                     draggable="true"
-                     data-waste-type="metal"
-                     data-points="15">
-
-                <img src="assets/banana_peel.png"
-                     alt="Banana peel waste"
-                     class="waste-item"
-                     id="waste-4"
-                     draggable="true"
-                     data-waste-type="organic"
-                     data-points="10">
-
-                <img src="assets/wrapper.png"
-                     alt="Food wrapper waste"
-                     class="waste-item"
-                     id="waste-5"
-                     draggable="true"
-                     data-waste-type="general"
-                     data-points="10">
-
-                <img src="assets/cup.png"
-                     alt="Disposable cup waste"
-                     class="waste-item"
-                     id="waste-6"
-                     draggable="true"
-                     data-waste-type="paper"
-                     data-points="10">
-
-                <img src="assets/paper.png"
-                     alt="Crushed paper waste"
-                     class="waste-item waste-item--paper-crushed"
-                     id="waste-7"
-                     draggable="true"
-                     data-waste-type="paper"
-                     data-points="10">
-
-                <img src="assets/bottle.png"
-                     alt="Plastic container waste"
-                     class="waste-item waste-item--plastic-container"
-                     id="waste-8"
-                     draggable="true"
-                     data-waste-type="plastic"
-                     data-points="10">
-
-                <img src="assets/wrapper.png"
-                     alt="Empty packet waste"
-                     class="waste-item waste-item--packet"
-                     id="waste-9"
-                     draggable="true"
-                     data-waste-type="general"
-                     data-points="10">
-
-                <img src="assets/paper.png"
-                     alt="Small cardboard piece waste"
-                     class="waste-item waste-item--cardboard"
-                     id="waste-10"
-                     draggable="true"
-                     data-waste-type="paper"
-                     data-points="10">
+                <div
+                    id="score"
+                    aria-live="polite"
+                >
+                    0
+                </div>
 
             </div>
 
-            <!-- Feedback notification area -->
-            <div id="feedbackMessage" aria-live="polite"></div>
 
-        </main>
+            <div class="hud-item" id="timerDisplay">
 
-        <!-- ==================== INSTRUCTIONS PANEL ==================== -->
-        <section id="instructions" aria-label="How to play instructions">
-            <h2 id="instructionsTitle">HOW TO PLAY</h2>
-            <ol>
-                <li>Pick up the waste.</li>
-                <li>Drag it to the dustbin.</li>
-                <li>Drop it inside.</li>
-                <li>Collect all waste before time runs out.</li>
+                <span class="hud-label">
+                    TIME
+                </span>
+
+                <div
+                    id="timer"
+                    aria-live="polite"
+                >
+                    01:00
+                </div>
+
+            </div>
+
+
+            <div
+                class="hud-item"
+                id="wasteRemainingDisplay"
+            >
+
+                <span class="hud-label">
+                    WASTE LEFT
+                </span>
+
+                <div
+                    id="wasteRemaining"
+                    aria-live="polite"
+                >
+                    10
+                </div>
+
+            </div>
+
+
+            <button
+                id="pauseButton"
+                type="button"
+                aria-label="Pause game"
+            >
+                PAUSE
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         START / PLAYER REGISTRATION SCREEN
+    ========================================================== -->
+
+    <div
+        id="startScreen"
+        class="game-screen"
+    >
+
+        <div class="screen-content">
+
+            <p class="screen-tag">
+                EHS AWARENESS GAME
+            </p>
+
+
+            <h2 class="screen-title">
+                CLEAN &amp; SAFE CHALLENGE
+            </h2>
+
+
+            <p class="screen-description">
+                Enter your details below to participate in the
+                workplace cleanliness EHS awareness game.
+            </p>
+
+
+            <!-- =================================================
+                 PLAYER REGISTRATION FORM
+            ================================================== -->
+
+            <div id="playerRegistration">
+
+
+                <!-- ================= NAME ================= -->
+
+                <div class="form-group">
+
+                    <label for="playerName">
+                        NAME
+                    </label>
+
+                    <input
+                        type="text"
+                        id="playerName"
+                        name="playerName"
+                        placeholder="Enter your name"
+                        autocomplete="name"
+                        maxlength="100"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ================ DEPARTMENT ================ -->
+
+                <div class="form-group">
+
+                    <label for="playerDepartment">
+                        DEPARTMENT
+                    </label>
+
+                    <select
+                        id="playerDepartment"
+                        name="playerDepartment"
+                        required
+                    >
+
+                        <option value="">
+                            Select Department
+                        </option>
+
+                        <option value="Production">
+                            Production
+                        </option>
+
+                        <option value="Engineering">
+                            Engineering
+                        </option>
+
+                        <option value="Quality">
+                            Quality
+                        </option>
+
+                        <option value="Warehouse">
+                            Warehouse
+                        </option>
+
+                        <option value="Supply Chain">
+                            Supply Chain
+                        </option>
+
+                        <option value="HR">
+                            HR
+                        </option>
+
+                        <option value="Finance">
+                            Finance
+                        </option>
+
+                        <option value="IT">
+                            IT
+                        </option>
+
+                        <option value="Procurement">
+                            Procurement
+                        </option>
+
+                        <option value="R&amp;D">
+                            R&amp;D
+                        </option>
+
+                        <option value="EHS">
+                            EHS
+                        </option>
+
+                        <option value="Admin">
+                            Admin
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- =============== DESIGNATION =============== -->
+
+                <div class="form-group">
+
+                    <label for="playerDesignation">
+                        DESIGNATION
+                    </label>
+
+                    <input
+                        type="text"
+                        id="playerDesignation"
+                        name="playerDesignation"
+                        placeholder="Enter your designation"
+                        maxlength="100"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 GAME INSTRUCTIONS
+            ================================================== -->
+
+            <ol class="screen-instructions">
+
+                <li>
+                    Pick up the waste.
+                </li>
+
+                <li>
+                    Drag the waste toward the dustbin.
+                </li>
+
+                <li>
+                    Drop it inside the dustbin.
+                </li>
+
+                <li>
+                    Complete the challenge before time runs out.
+                </li>
+
             </ol>
-        </section>
 
-        <!-- ==================== PAUSE SCREEN ==================== -->
-        <div id="pauseScreen" class="game-screen hidden">
-            <div class="screen-content">
-                <h2 class="screen-title">GAME PAUSED</h2>
-                <p class="screen-description">Take a short break and continue when ready.</p>
-                <div class="screen-actions">
-                    <button id="resumeButton" type="button">RESUME</button>
-                    <button id="pauseRestartButton" type="button">RESTART</button>
-                </div>
-            </div>
+
+            <!-- =================================================
+                 START BUTTON
+            ================================================== -->
+
+            <button
+                id="startButton"
+                type="button"
+            >
+                START GAME
+            </button>
+
+
+            <!-- =================================================
+                 REGISTRATION VALIDATION MESSAGE
+            ================================================== -->
+
+            <div
+                id="registrationMessage"
+                class="registration-message"
+                aria-live="polite"
+            ></div>
+
         </div>
-
-        <!-- ==================== GAME OVER SCREEN ==================== -->
-        <div id="gameOverScreen" class="game-screen hidden">
-            <div class="screen-content">
-                <h2 class="screen-title">TIME'S UP!</h2>
-                <p class="screen-description">
-                    The time has run out.
-                    Try again and improve your score!
-                </p>
-                <p class="final-score-line">
-                    FINAL SCORE: <span id="finalScore">0</span>
-                </p>
-                <button id="restartButton" type="button">TRY AGAIN</button>
-            </div>
-        </div>
-
-        <!-- ==================== SUCCESS SCREEN ==================== -->
-        <div id="successScreen" class="game-screen hidden">
-            <div class="screen-content">
-                <h2 class="screen-title">WELL DONE!</h2>
-                <p class="screen-description">Great job! You successfully cleaned the workplace.</p>
-                <p class="final-score-line">
-                    FINAL SCORE: <span id="successScore">0</span>
-                </p>
-                <p class="completion-message">You completed the Clean &amp; Safe Challenge!</p>
-                <div class="screen-actions">
-                    <button id="playAgainButton" type="button">PLAY AGAIN</button>
-                    <button id="homeButton" type="button">HOME</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==================== FOOTER ==================== -->
-        <footer id="gameFooter">
-            <p id="footerTagline">KEEP YOUR WORKPLACE CLEAN &amp; SAFE</p>
-            <p id="footerCredit">EHS Awareness | Clean Workplace | Safe Workplace</p>
-        </footer>
 
     </div>
 
-    <!-- ==================== AUDIO ELEMENTS ==================== -->
-    <audio id="pickupSound" preload="auto"></audio>
-    <audio id="dropSound" preload="auto"></audio>
-    <audio id="successSound" preload="auto"></audio>
-    <audio id="gameOverSound" preload="auto"></audio>
+
+    <!-- =========================================================
+         MAIN GAME AREA
+    ========================================================== -->
+
+    <main
+        id="gameArea"
+        aria-label="Workplace cleaning game area"
+    >
+
+
+        <!-- =====================================================
+             DUSTBIN
+        ====================================================== -->
+
+        <div
+            id="dustbin"
+            aria-label="Waste Dustbin"
+            role="img"
+        >
+
+            <img
+                src="assets/dustbin.png"
+                alt="Waste dustbin target"
+            >
+
+        </div>
+
+
+        <!-- =====================================================
+             WASTE CONTAINER
+        ====================================================== -->
+
+        <div
+            id="wasteContainer"
+            aria-label="Scattered waste items"
+        >
+
+
+            <!-- ================= WASTE 1 ================= -->
+
+            <img
+                src="assets/bottle.png"
+                alt="Plastic bottle waste"
+                class="waste-item"
+                id="waste-1"
+                draggable="true"
+                data-waste-type="plastic"
+                data-points="10"
+            >
+
+
+            <!-- ================= WASTE 2 ================= -->
+
+            <img
+                src="assets/paper.png"
+                alt="Paper waste"
+                class="waste-item"
+                id="waste-2"
+                draggable="true"
+                data-waste-type="paper"
+                data-points="10"
+            >
+
+
+            <!-- ================= WASTE 3 ================= -->
+
+            <img
+                src="assets/can.png"
+                alt="Aluminum can waste"
+                class="waste-item"
+                id="waste-3"
+                draggable="true"
+                data-waste-type="metal"
+                data-points="15"
+            >
+
+
+            <!-- ================= WASTE 4 ================= -->
+
+            <img
+                src="assets/banana_peel.png"
+                alt="Banana peel waste"
+                class="waste-item"
+                id="waste-4"
+                draggable="true"
+                data-waste-type="organic"
+                data-points="10"
+            >
+
+
+            <!-- ================= WASTE 5 ================= -->
+
+            <img
+                src="assets/wrapper.png"
+                alt="Food wrapper waste"
+                class="waste-item"
+                id="waste-5"
+                draggable="true"
+                data-waste-type="general"
+                data-points="10"
+            >
+
+
+            <!-- ================= WASTE 6 ================= -->
+
+            <img
+                src="assets/cup.png"
+                alt="Disposable cup waste"
+                class="waste-item"
+                id="waste-6"
+                draggable="true"
+                data-waste-type="paper"
+                data-points="10"
+            >
+
+
+            <!-- ================= WASTE 7 ================= -->
+
+            <img
+                src="assets/paper.png"
+                alt="Crushed paper waste"
+                class="waste-item waste-item--paper-crushed"
+                id="waste-7"
+                draggable="true"
+                data-waste-type="paper"
+                data-points="10"
+            >
+
+
+            <!-- ================= WASTE 8 ================= -->
+
+            <img
+                src="assets/bottle.png"
+                alt="Plastic container waste"
+                class="waste-item waste-item--plastic-container"
+                id="waste-8"
+                draggable="true"
+                data-waste-type="plastic"
+                data-points="10"
+            >
+
+
+            <!-- ================= WASTE 9 ================= -->
+
+            <img
+                src="assets/wrapper.png"
+                alt="Empty packet waste"
+                class="waste-item waste-item--packet"
+                id="waste-9"
+                draggable="true"
+                data-waste-type="general"
+                data-points="10"
+            >
+
+
+            <!-- ================= WASTE 10 ================= -->
+
+            <img
+                src="assets/paper.png"
+                alt="Small cardboard piece waste"
+                class="waste-item waste-item--cardboard"
+                id="waste-10"
+                draggable="true"
+                data-waste-type="paper"
+                data-points="10"
+            >
+
+        </div>
+
+
+        <!-- =====================================================
+             FEEDBACK MESSAGE
+        ====================================================== -->
+
+        <div
+            id="feedbackMessage"
+            aria-live="polite"
+        ></div>
+
+    </main>
+
+
+    <!-- =========================================================
+         INSTRUCTIONS PANEL
+    ========================================================== -->
+
+    <section
+        id="instructions"
+        aria-label="How to play instructions"
+    >
+
+        <h2 id="instructionsTitle">
+            HOW TO PLAY
+        </h2>
+
+        <ol>
+
+            <li>
+                Pick up the waste.
+            </li>
+
+            <li>
+                Drag it to the dustbin.
+            </li>
+
+            <li>
+                Drop it inside.
+            </li>
+
+            <li>
+                Collect all waste before time runs out.
+            </li>
+
+        </ol>
+
+    </section>
+
+
+    <!-- =========================================================
+         PAUSE SCREEN
+    ========================================================== -->
+
+    <div
+        id="pauseScreen"
+        class="game-screen hidden"
+    >
+
+        <div class="screen-content">
+
+            <h2 class="screen-title">
+                GAME PAUSED
+            </h2>
+
+            <p class="screen-description">
+                Take a short break and continue when ready.
+            </p>
+
+            <div class="screen-actions">
+
+                <button
+                    id="resumeButton"
+                    type="button"
+                >
+                    RESUME
+                </button>
+
+                <button
+                    id="pauseRestartButton"
+                    type="button"
+                >
+                    RESTART
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         GAME OVER SCREEN
+    ========================================================== -->
+
+    <div
+        id="gameOverScreen"
+        class="game-screen hidden"
+    >
+
+        <div class="screen-content">
+
+            <h2 class="screen-title">
+                TIME'S UP!
+            </h2>
+
+            <p class="screen-description">
+                The time has run out.
+                Try again and improve your score!
+            </p>
+
+            <p class="final-score-line">
+
+                FINAL SCORE:
+
+                <span id="finalScore">
+                    0
+                </span>
+
+            </p>
+
+            <button
+                id="restartButton"
+                type="button"
+            >
+                TRY AGAIN
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         SUCCESS SCREEN
+    ========================================================== -->
+
+    <div
+        id="successScreen"
+        class="game-screen hidden"
+    >
+
+        <div class="screen-content">
+
+            <h2 class="screen-title">
+                WELL DONE!
+            </h2>
+
+            <p class="screen-description">
+                Great job! You successfully cleaned the workplace.
+            </p>
+
+            <p class="final-score-line">
+
+                FINAL SCORE:
+
+                <span id="successScore">
+                    0
+                </span>
+
+            </p>
+
+            <p class="completion-message">
+                You completed the Clean &amp; Safe Challenge!
+            </p>
+
+            <div class="screen-actions">
+
+                <button
+                    id="playAgainButton"
+                    type="button"
+                >
+                    PLAY AGAIN
+                </button>
+
+                <button
+                    id="homeButton"
+                    type="button"
+                >
+                    HOME
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer id="gameFooter">
+
+        <p id="footerTagline">
+            KEEP YOUR WORKPLACE CLEAN &amp; SAFE
+        </p>
+
+        <p id="footerCredit">
+            EHS Awareness | Clean Workplace | Safe Workplace
+        </p>
+
+    </footer>
+
+</div>
+
+
+<!-- =============================================================
+     AUDIO ELEMENTS
+============================================================== -->
+
+<audio
+    id="pickupSound"
+    preload="auto"
+></audio>
+
+<audio
+    id="dropSound"
+    preload="auto"
+></audio>
+
+<audio
+    id="successSound"
+    preload="auto"
+></audio>
+
+<audio
+    id="gameOverSound"
+    preload="auto"
+></audio>
+
+
+<!-- =============================================================
+     GAME JAVASCRIPT
+============================================================== -->
+
+<script src="game.js"></script>
 
 </body>
 </html>
