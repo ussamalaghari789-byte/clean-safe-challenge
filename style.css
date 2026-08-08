@@ -1,882 +1,170 @@
-/* =============================================================
-   CLEAN & SAFE CHALLENGE — EHS Awareness Game
-   style.css
-   Design tokens:
-     --color-deep-green   : header / dark structural surfaces
-     --color-safety-green : primary brand / success identity
-     --color-bright-green : accents, active states, CTAs
-     --color-ink           : primary text on light surfaces
-     --color-mist           : light neutral surfaces
-     --color-warning        : timer warning / caution
-     --color-danger          : timer critical / game over
-     --color-info             : secondary actions
-   ============================================================= */
+/* =========================================================
+   PLAYER REGISTRATION FORM
+   ========================================================= */
 
-/* ==================== 1. GLOBAL RESET ==================== */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html,
-body {
+#playerRegistration {
     width: 100%;
-    min-height: 100%;
-    overflow-x: hidden;
+    max-width: 360px;
+    margin: 0 auto 22px;
+    text-align: left;
 }
 
-img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
-
-button {
-    font-family: inherit;
-    border: none;
-    background: none;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    appearance: none;
-}
-
-ol,
-ul {
-    list-style: none;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-/* ==================== 2. DESIGN TOKENS ==================== */
-:root {
-    /* Core EHS palette */
-    --color-deep-green: #163C2C;
-    --color-deep-green-alt: #1E4D38;
-    --color-safety-green: #1F7A4C;
-    --color-safety-green-dark: #145C39;
-    --color-bright-green: #37B369;
-    --color-ink: #16241E;
-    --color-ink-soft: #4B5E56;
-    --color-mist: #F3F6F4;
-    --color-mist-strong: #E5ECE8;
-    --color-white: #FFFFFF;
-
-    --color-warning: #F0A500;
-    --color-warning-bg: #FFF4D9;
-    --color-danger: #D2402C;
-    --color-danger-bg: #FCE3DE;
-    --color-info: #2C6E9B;
-    --color-info-bg: #DCEBF4;
-
-    /* Elevation */
-    --shadow-sm: 0 1px 3px rgba(15, 30, 24, 0.10);
-    --shadow-md: 0 6px 16px rgba(15, 30, 24, 0.14);
-    --shadow-lg: 0 18px 40px rgba(10, 20, 16, 0.28);
-
-    /* Radius */
-    --radius-sm: 8px;
-    --radius-md: 14px;
-    --radius-lg: 22px;
-    --radius-pill: 999px;
-
-    /* Type */
-    --font-base:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        sans-serif;
-
-    /* Z-index scale */
-    --z-floor: 1;
-    --z-waste: 10;
-    --z-waste-dragging: 20;
-    --z-dustbin: 15;
-    --z-header: 100;
-    --z-feedback: 200;
-    --z-modal: 500;
-
-    /* Transitions */
-    --ease-standard: cubic-bezier(0.22, 0.9, 0.32, 1);
-}
-
-/* ==================== 3. BODY ==================== */
-body {
-    font-family: var(--font-base);
-    color: var(--color-ink);
-    background-color: var(--color-deep-green);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    line-height: 1.4;
-}
-
-/* ==================== 4. MAIN GAME CONTAINER ==================== */
-#game {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    max-width: 1440px;
-    margin: 0 auto;
+.form-group {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-mist);
-    overflow: hidden;
-}
-
-/* ==================== 5. GAME HEADER ==================== */
-#gameHeader {
-    position: relative;
-    z-index: var(--z-header);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 18px 28px;
-    background: linear-gradient(135deg, var(--color-deep-green) 0%, var(--color-deep-green-alt) 100%);
-    color: var(--color-white);
-    border-bottom: 3px solid var(--color-bright-green);
-    box-shadow: var(--shadow-md);
-}
-
-#titleBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-#brandTag {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    color: var(--color-bright-green);
-    text-transform: uppercase;
-}
-
-#gameTitle {
-    font-size: clamp(1.35rem, 2.4vw, 2.1rem);
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    line-height: 1.1;
-}
-
-#gameSubtitle {
-    font-size: 0.85rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.75);
-}
-
-/* ==================== 6. HUD / SCORE CARDS ==================== */
-#hud {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.hud-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-width: 84px;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-}
-
-.hud-label {
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.65);
-    text-transform: uppercase;
-}
-
-#score,
-#timer,
-#wasteRemaining {
-    font-size: 1.4rem;
-    font-weight: 800;
-    line-height: 1.25;
-    color: var(--color-white);
-    transition: transform 0.2s var(--ease-standard);
-}
-
-#score {
-    color: var(--color-bright-green);
-}
-
-/* ---- Timer states ---- */
-#timerDisplay {
-    transition: background-color 0.3s var(--ease-standard), border-color 0.3s var(--ease-standard);
-}
-
-.timer-warning#timerDisplay,
-#timerDisplay.timer-warning {
-    background: rgba(240, 165, 0, 0.18);
-    border-color: var(--color-warning);
-}
-
-.timer-warning #timer,
-#timer.timer-warning {
-    color: var(--color-warning);
-}
-
-.timer-critical#timerDisplay,
-#timerDisplay.timer-critical {
-    background: rgba(210, 64, 44, 0.2);
-    border-color: var(--color-danger);
-}
-
-.timer-critical #timer,
-#timer.timer-critical {
-    color: var(--color-danger);
-    animation: timerPulse 1s infinite ease-in-out;
-}
-
-@keyframes timerPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.12); }
-}
-
-/* ---- Score / counter feedback animations ---- */
-.score-pop {
-    animation: scorePop 0.35s var(--ease-standard);
-}
-
-@keyframes scorePop {
-    0% { transform: scale(1); }
-    40% { transform: scale(1.35); }
-    100% { transform: scale(1); }
-}
-
-.waste-counter-update {
-    animation: counterUpdate 0.3s var(--ease-standard);
-}
-
-@keyframes counterUpdate {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.25); color: var(--color-warning); }
-    100% { transform: scale(1); }
-}
-
-/* ==================== 7. PAUSE BUTTON ==================== */
-#pauseButton {
-    padding: 10px 18px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--color-white);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: var(--radius-pill);
-    transition: background-color 0.2s var(--ease-standard), transform 0.15s var(--ease-standard);
-}
-
-#pauseButton:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-#pauseButton:active {
-    transform: scale(0.96);
-}
-
-/* ==================== 8. MAIN GAME AREA ==================== */
-#gameArea {
-    position: relative;
-    flex: 1;
-    min-height: 480px;
-    width: 100%;
-    overflow: hidden;
-    background-image:
-        linear-gradient(180deg, rgba(10, 20, 16, 0.12) 0%, rgba(10, 20, 16, 0.28) 100%),
-        url("assets/background.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: var(--z-floor);
-    touch-action: none;
-}
-
-/* ==================== 9. DUSTBIN ==================== */
-#dustbin {
-    position: absolute;
-    right: 6%;
-    bottom: 8%;
-    width: clamp(96px, 12vw, 160px);
-    z-index: var(--z-dustbin);
-    cursor: pointer;
-    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
-    transition: transform 0.25s var(--ease-standard), filter 0.25s var(--ease-standard);
-}
-
-#dustbin img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-#dustbin:hover {
-    transform: translateY(-4px) scale(1.04);
-}
-
-#dustbin.dustbin-active {
-    transform: scale(1.12);
-    filter:
-        drop-shadow(0 0 0 6px rgba(55, 179, 105, 0.28))
-        drop-shadow(0 10px 22px rgba(0, 0, 0, 0.4));
-    animation: dustbinGlow 0.9s infinite ease-in-out;
-}
-
-@keyframes dustbinGlow {
-    0%, 100% { filter: drop-shadow(0 0 0 4px rgba(55, 179, 105, 0.25)) drop-shadow(0 10px 22px rgba(0,0,0,0.4)); }
-    50% { filter: drop-shadow(0 0 0 10px rgba(55, 179, 105, 0.4)) drop-shadow(0 10px 22px rgba(0,0,0,0.4)); }
-}
-
-#dustbin.dustbin-success {
-    animation: dustbinSuccess 0.5s var(--ease-standard);
-}
-
-@keyframes dustbinSuccess {
-    0% { transform: scale(1); }
-    35% { transform: scale(1.22) rotate(-3deg); }
-    70% { transform: scale(0.96) rotate(2deg); }
-    100% { transform: scale(1) rotate(0deg); }
-}
-
-/* ==================== 10. WASTE CONTAINER & ITEMS ==================== */
-#wasteContainer {
-    position: absolute;
-    inset: 0;
-    z-index: var(--z-waste);
-}
-
-.waste-item {
-    position: absolute;
-    width: clamp(52px, 6.5vw, 84px);
-    object-fit: contain;
-    cursor: grab;
-    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.28));
-    transition: transform 0.2s var(--ease-standard), filter 0.2s var(--ease-standard), opacity 0.3s ease;
-    touch-action: none;
-}
-
-.waste-item:hover {
-    transform: scale(1.08);
-    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
-    cursor: grab;
-}
-
-.waste-item.dragging {
-    cursor: grabbing;
-    transform: scale(1.14);
-    opacity: 0.9;
-    filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.4));
-    z-index: var(--z-waste-dragging);
-}
-
-.waste-item.collected {
-    animation: wasteCollected 0.4s var(--ease-standard) forwards;
-    pointer-events: none;
-}
-
-@keyframes wasteCollected {
-    0% { transform: scale(1) rotate(0deg); opacity: 1; }
-    100% { transform: scale(0.15) rotate(25deg); opacity: 0; }
-}
-
-/* ---- Natural scatter placement for each item ---- */
-#waste-1  { top: 18%; left: 10%; }
-#waste-2  { top: 62%; left: 16%; }
-#waste-3  { top: 30%; left: 32%; }
-#waste-4  { top: 72%; left: 38%; }
-#waste-5  { top: 14%; left: 52%; }
-#waste-6  { top: 46%; left: 8%;  }
-#waste-7  { top: 55%; left: 58%; }
-#waste-8  { top: 22%; left: 68%; }
-#waste-9  { top: 68%; left: 24%; }
-#waste-10 { top: 38%; left: 46%; }
-
-/* ==================== 11. FEEDBACK MESSAGE ==================== */
-#feedbackMessage {
-    position: absolute;
-    top: 6%;
-    left: 50%;
-    transform: translate(-50%, -12px);
-    z-index: var(--z-feedback);
-    padding: 10px 22px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--color-white);
-    background: var(--color-safety-green-dark);
-    border-radius: var(--radius-pill);
-    box-shadow: var(--shadow-md);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s var(--ease-standard), transform 0.25s var(--ease-standard);
-}
-
-#feedbackMessage:not(:empty) {
-    opacity: 1;
-    transform: translate(-50%, 0);
-}
-
-.feedback-success {
-    background: var(--color-safety-green-dark);
-}
-
-.feedback-warning {
-    background: var(--color-warning);
-    color: var(--color-ink);
-}
-
-.feedback-error {
-    background: var(--color-danger);
-}
-
-/* ==================== 12. INSTRUCTIONS PANEL ==================== */
-#instructions {
-    padding: 16px 28px;
-    background: var(--color-white);
-    border-top: 1px solid var(--color-mist-strong);
-    box-shadow: var(--shadow-sm);
-}
-
-#instructionsTitle {
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    color: var(--color-safety-green-dark);
-    margin-bottom: 8px;
-}
-
-#instructions ol {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 22px;
-}
-
-#instructions li {
-    position: relative;
-    padding-left: 22px;
-    font-size: 0.85rem;
-    color: var(--color-ink-soft);
-    counter-increment: step-counter;
-}
-
-#instructions ol {
-    counter-reset: step-counter;
-}
-
-#instructions li::before {
-    content: counter(step-counter);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    text-align: center;
-    font-size: 0.65rem;
-    font-weight: 800;
-    color: var(--color-white);
-    background: var(--color-safety-green);
-    border-radius: 50%;
-}
-
-/* ==================== 13. FOOTER ==================== */
-#gameFooter {
-    padding: 12px 28px;
-    text-align: center;
-    background: var(--color-deep-green);
-    color: rgba(255, 255, 255, 0.75);
-}
-
-#footerTagline {
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    color: var(--color-bright-green);
-    margin-bottom: 2px;
-}
-
-#footerCredit {
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-/* ==================== 14. MODAL / GAME SCREENS ==================== */
-.game-screen {
-    position: fixed;
-    inset: 0;
-    z-index: var(--z-modal);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    background: rgba(10, 22, 17, 0.72);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    animation: modalFadeIn 0.3s var(--ease-standard);
-}
-
-.game-screen.hidden {
-    display: none !important;
-}
-
-@keyframes modalFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.screen-content {
-    width: 100%;
-    max-width: 460px;
-    padding: 36px 32px;
-    background: var(--color-white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    text-align: center;
-    animation: modalScaleIn 0.32s var(--ease-standard);
-}
-
-@keyframes modalScaleIn {
-    from { opacity: 0; transform: scale(0.92) translateY(12px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.screen-tag {
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    color: var(--color-safety-green);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-}
-
-.screen-title {
-    font-size: clamp(1.4rem, 3vw, 1.9rem);
-    font-weight: 800;
-    color: var(--color-ink);
+    gap: 6px;
     margin-bottom: 14px;
 }
 
-.screen-description {
-    font-size: 0.92rem;
-    color: var(--color-ink-soft);
-    margin-bottom: 18px;
-    line-height: 1.55;
-}
-
-.screen-instructions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    text-align: left;
-    margin: 0 auto 24px;
-    max-width: 340px;
-    counter-reset: instr-counter;
-}
-
-.screen-instructions li {
-    position: relative;
-    padding-left: 30px;
-    font-size: 0.85rem;
-    color: var(--color-ink-soft);
-    counter-increment: instr-counter;
-}
-
-.screen-instructions li::before {
-    content: counter(instr-counter);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    text-align: center;
-    font-size: 0.7rem;
+.form-group label {
+    font-size: 0.72rem;
     font-weight: 800;
-    color: var(--color-white);
-    background: var(--color-safety-green);
-    border-radius: 50%;
-}
-
-.final-score-line {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-ink);
-    letter-spacing: 0.04em;
-    margin-bottom: 18px;
-}
-
-.final-score-line span {
-    font-size: 1.5rem;
-    font-weight: 800;
-}
-
-.completion-message {
-    font-size: 0.88rem;
-    color: var(--color-ink-soft);
-    margin-bottom: 22px;
-}
-
-.screen-actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-/* ---- Game Over identity ---- */
-#gameOverScreen .screen-content {
-    border-top: 6px solid var(--color-danger);
-}
-
-#gameOverScreen .screen-title {
-    color: var(--color-danger);
-}
-
-#gameOverScreen .final-score-line span {
-    color: var(--color-danger);
-}
-
-/* ---- Success identity ---- */
-#successScreen .screen-content {
-    border-top: 6px solid var(--color-safety-green);
-}
-
-#successScreen .screen-title {
+    letter-spacing: 0.08em;
     color: var(--color-safety-green-dark);
+    text-transform: uppercase;
 }
 
-#successScreen .final-score-line span {
-    color: var(--color-safety-green);
-}
+.form-group input,
+.form-group select {
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 14px;
 
-/* ---- Pause identity ---- */
-#pauseScreen .screen-content {
-    border-top: 6px solid var(--color-info);
-}
-
-/* ==================== 15. BUTTONS ==================== */
-#startButton,
-#restartButton,
-#playAgainButton,
-#resumeButton,
-#pauseRestartButton,
-#homeButton {
-    padding: 14px 30px;
+    font-family: var(--font-base);
     font-size: 0.9rem;
-    font-weight: 800;
-    letter-spacing: 0.05em;
-    border-radius: var(--radius-pill);
-    transition: transform 0.15s var(--ease-standard), box-shadow 0.15s var(--ease-standard), background-color 0.2s var(--ease-standard);
-    box-shadow: var(--shadow-sm);
-}
+    font-weight: 500;
 
-/* Primary (green) buttons */
-#startButton,
-#restartButton,
-#playAgainButton,
-#resumeButton {
-    color: var(--color-white);
-    background: linear-gradient(135deg, var(--color-safety-green) 0%, var(--color-bright-green) 100%);
-}
-
-#startButton:hover,
-#restartButton:hover,
-#playAgainButton:hover,
-#resumeButton:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
-#startButton:active,
-#restartButton:active,
-#playAgainButton:active,
-#resumeButton:active {
-    transform: translateY(0) scale(0.97);
-}
-
-/* Secondary (outline) buttons */
-#pauseRestartButton,
-#homeButton {
-    color: var(--color-safety-green-dark);
+    color: var(--color-ink);
     background: var(--color-mist);
+
     border: 1.5px solid var(--color-mist-strong);
+    border-radius: var(--radius-sm);
+
+    outline: none;
+
+    transition:
+        border-color 0.2s var(--ease-standard),
+        box-shadow 0.2s var(--ease-standard),
+        background-color 0.2s var(--ease-standard);
 }
 
-#pauseRestartButton:hover,
-#homeButton:hover {
-    background: var(--color-mist-strong);
-    transform: translateY(-2px);
+.form-group input::placeholder {
+    color: var(--color-ink-soft);
+    opacity: 0.65;
 }
 
-#pauseRestartButton:active,
-#homeButton:active {
-    transform: translateY(0) scale(0.97);
+.form-group input:hover,
+.form-group select:hover {
+    border-color: var(--color-bright-green);
 }
 
-#startButton {
-    padding: 16px 44px;
-    font-size: 1rem;
+.form-group input:focus,
+.form-group select:focus {
+    background: var(--color-white);
+    border-color: var(--color-safety-green);
+    box-shadow: 0 0 0 3px rgba(55, 179, 105, 0.15);
 }
 
-/* ==================== 16. ACCESSIBILITY ==================== */
-button:focus-visible,
-.waste-item:focus-visible,
-#dustbin:focus-visible {
-    outline: 3px solid var(--color-info);
-    outline-offset: 3px;
+/* Dropdown arrow / appearance */
+.form-group select {
+    cursor: pointer;
+    appearance: auto;
 }
 
-/* ==================== 17. REDUCED MOTION ==================== */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
-        scroll-behavior: auto !important;
-    }
+/* Invalid fields */
+.form-group input.input-error,
+.form-group select.input-error {
+    border-color: var(--color-danger);
+    background: var(--color-danger-bg);
 }
 
-/* ==================== 18. RESPONSIVE DESIGN ==================== */
+/* Registration validation message */
+.registration-message {
+    min-height: 20px;
+    margin-top: 12px;
 
-/* Laptop / small desktop */
-@media (max-width: 1280px) {
-    #gameHeader {
-        padding: 16px 20px;
-    }
+    font-size: 0.8rem;
+    font-weight: 700;
+
+    color: var(--color-danger);
+
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
-/* Tablet */
-@media (max-width: 900px) {
-    #gameHeader {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-    #hud {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .hud-item {
-        flex: 1;
-        min-width: 0;
-    }
-
-    #gameArea {
-        min-height: 420px;
-    }
-
-    #instructions ol {
-        gap: 8px 16px;
-    }
+.registration-message:not(:empty) {
+    opacity: 1;
 }
 
-/* Mobile */
+
+/* =========================================================
+   REGISTRATION SCREEN IMPROVEMENT
+   ========================================================= */
+
+#startScreen .screen-content {
+    max-width: 500px;
+}
+
+#startScreen .screen-description {
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   MOBILE REGISTRATION FORM
+   ========================================================= */
+
 @media (max-width: 600px) {
-    #gameHeader {
-        padding: 14px 16px;
+
+    #startScreen {
+        padding: 16px;
+        overflow-y: auto;
     }
 
-    #gameTitle {
-        font-size: 1.15rem;
+    #startScreen .screen-content {
+        max-width: 100%;
+        padding: 24px 20px;
     }
 
-    #gameSubtitle {
-        font-size: 0.75rem;
+    #playerRegistration {
+        max-width: 100%;
     }
 
-    #hud {
-        gap: 8px;
+    .form-group {
+        margin-bottom: 12px;
     }
 
-    .hud-item {
-        padding: 6px 10px;
-        min-width: 0;
+    .form-group input,
+    .form-group select {
+        min-height: 44px;
+        font-size: 0.85rem;
     }
 
-    #score,
-    #timer,
-    #wasteRemaining {
-        font-size: 1.05rem;
-    }
-
-    #pauseButton {
-        padding: 8px 14px;
+    .form-group label {
         font-size: 0.68rem;
     }
 
-    #gameArea {
-        min-height: 380px;
+    #startScreen .screen-instructions {
+        margin-bottom: 20px;
     }
 
-    .waste-item {
-        width: clamp(48px, 15vw, 68px);
-    }
-
-    #dustbin {
-        width: clamp(84px, 22vw, 120px);
-        right: 4%;
-        bottom: 6%;
-    }
-
-    #instructions {
-        padding: 12px 16px;
-    }
-
-    #instructions ol {
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .screen-content {
-        padding: 26px 22px;
-    }
-
-    .screen-actions {
-        flex-direction: column;
-    }
-
-    .screen-actions button {
-        width: 100%;
-    }
-
-    #gameFooter {
-        padding: 10px 16px;
-    }
 }
 
-/* Small mobile */
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
 @media (max-width: 380px) {
-    #gameTitle {
-        font-size: 1rem;
+
+    #startScreen .screen-content {
+        padding: 20px 16px;
     }
 
-    .hud-label {
-        font-size: 0.56rem;
+    .form-group input,
+    .form-group select {
+        min-height: 42px;
+        padding: 9px 12px;
     }
 
-    #score,
-    #timer,
-    #wasteRemaining {
-        font-size: 0.9rem;
-    }
 }
